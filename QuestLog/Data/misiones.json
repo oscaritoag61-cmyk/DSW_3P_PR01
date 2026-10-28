@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "El Despertar del Héroe",
+    "Dificultad": "Fácil",
+    "RecompensaXP": 100,
+    "Completada": false
+  },
+  {
+    "Id": 2,
+    "Nombre": "Cacería en el Bosque Oscuro",
+    "Dificultad": "Media",
+    "RecompensaXP": 350,
+    "Completada": false
+  },
+  {
+    "Id": 3,
+    "Nombre": "Asalto a la Fortaleza del Dragón",
+    "Dificultad": "Difícil",
+    "RecompensaXP": 1200,
+    "Completada": false
+  }
+]

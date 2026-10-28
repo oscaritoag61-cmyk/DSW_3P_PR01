@@ -1,0 +1,80 @@
+@host = http://localhost:5097
+
+### Obtener todas las misiones
+GET {{host}}/api/misiones
+
+### Consultar una misión
+GET {{host}}/api/misiones/1
+
+### Registrar misiones
+POST {{host}}/api/misiones
+Content-Type: application/json
+
+{
+  "nombre": "El Despertar del Héroe",
+  "dificultad": "Fácil",
+  "recompensaXP": 100
+}
+
+###
+POST {{host}}/api/misiones
+Content-Type: application/json
+
+{
+  "nombre": "Cacería en el Bosque Oscuro",
+  "dificultad": "Media",
+  "recompensaXP": 350
+}
+
+###
+POST {{host}}/api/misiones
+Content-Type: application/json
+
+{
+  "nombre": "Asalto a la Fortaleza del Dragón",
+  "dificultad": "Difícil",
+  "recompensaXP": 1200
+}
+
+### Actualizar (marcar como completada)
+PUT {{host}}/api/misiones/1
+Content-Type: application/json
+
+{
+  "nombre": "El Despertar del Héroe",
+  "dificultad": "Fácil",
+  "recompensaXP": 150,
+  "completada": true
+}
+
+### Eliminar
+DELETE {{host}}/api/misiones/1
+
+### --- Casos de error esperados ---
+
+### 400: nombre vacío
+POST {{host}}/api/misiones
+Content-Type: application/json
+
+{ "nombre": "", "dificultad": "Media", "recompensaXP": 10 }
+
+### 400: dificultad inválida
+POST {{host}}/api/misiones
+Content-Type: application/json
+
+{ "nombre": "Prueba", "dificultad": "Imposible", "recompensaXP": 10 }
+
+### 400: XP negativa
+POST {{host}}/api/misiones
+Content-Type: application/json
+
+{ "nombre": "Prueba", "dificultad": "Media", "recompensaXP": -5 }
+
+### 404: misión inexistente
+PUT {{host}}/api/misiones/999
+Content-Type: application/json
+
+{ "nombre": "Prueba", "dificultad": "Media", "recompensaXP": 10 }
+
+### 404: eliminar inexistente
+DELETE {{host}}/api/misiones/999
