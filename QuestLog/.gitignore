@@ -1,0 +1,13 @@
+# Build output
+bin/
+obj/
+
+# IDE settings
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Local environment and temporary files
+.env
+*.tmp
