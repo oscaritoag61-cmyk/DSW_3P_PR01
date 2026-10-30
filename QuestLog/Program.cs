@@ -32,3 +32,8 @@ app.Map("/error", () => Results.Problem(
     statusCode: StatusCodes.Status500InternalServerError));
 
 app.Run();
+
+//ORM
+//dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+//dotnet add package Microsoft.EntityFrameworkCore.Design
+//dotnet tool install --global dotnet-ef --version 10.0.*
