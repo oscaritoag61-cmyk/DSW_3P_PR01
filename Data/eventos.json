@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Hackatón Bajío 2026",
+    "Categoria": "Hackatón",
+    "Fecha": "2026-12-05T09:00:00",
+    "Lugar": "Universidad La Salle Bajío",
+    "CupoMaximo": 120,
+    "Activo": true
+  },
+  {
+    "Id": 2,
+    "Nombre": "Taller de APIs REST con .NET",
+    "Categoria": "Taller",
+    "Fecha": "2026-12-12T16:00:00",
+    "Lugar": "Laboratorio de Cómputo 3",
+    "CupoMaximo": 30,
+    "Activo": true
+  }
+]
