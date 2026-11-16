@@ -28,7 +28,8 @@ Swagger: http://localhost:5080/swagger
 1. `chore: proyecto inicial y modelo Evento`
 2. `feat: CRUD de eventos con Repository, Service y persistencia JSON (Swagger)`  ← versión JSON
 3. `feat: integrar EF Core y repositorio SQL Server` (rama `feature/sql-server`)
-4. `feat: migración inicial de la tabla Eventos` ← se crea al ejecutar las migraciones
+4. `docs: README con endpoints, migraciones y publicación`
+5. Migración `Inicial` y creación de la tabla `Eventos` mediante EF Core.
 
 ## Ejecución
 ```bash
@@ -36,15 +37,20 @@ dotnet restore
 dotnet run
 ```
 
-## Migraciones (solo versión SQL Server)
-Ajusta la cadena de conexión en `appsettings.json` si no usas LocalDB
-(por ejemplo SQL Server Express: `Server=.\\SQLEXPRESS;Database=EventosDb;Trusted_Connection=True;TrustServerCertificate=True;`).
+## Migraciones (versión SQL Server)
+La cadena de conexión predeterminada usa SQL Server Express local (`.\SQLEXPRESS`).
+Modifica `ConnectionStrings:DefaultConnection` en `appsettings.json` si tu instancia es diferente.
 
 ```bash
-dotnet tool install --global dotnet-ef
 dotnet ef migrations add Inicial
 dotnet ef database update
 ```
+
+La migración `Inicial` crea la tabla `Eventos` con las siete propiedades del modelo.
+La interfaz `IEventoRepository`, el Controller y el Service se conservan; el cambio
+de persistencia se concentra en `EventoSqlRepository`, `AppDbContext`, la configuración
+de Entity Framework Core y el registro de dependencias en `Program.cs`. `EventoJsonRepository`
+permanece como implementación de la versión anterior.
 
 Verificar en SQL Server / SSMS:
 ```sql
