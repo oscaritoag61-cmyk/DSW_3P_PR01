@@ -73,10 +73,13 @@ SELECT * FROM Eventos;
 Casos inválidos para probar: `nombre` vacío, `cupoMaximo` 0 o negativo, `fecha` omitida.
 
 ## Publicar en GitHub
+Esta entrega se publicó en la rama `eventos-tecnologicos` para no sobrescribir
+`main`, `master` ni `feature/sql-server`, que ya contenían otra aplicación.
+
+Repositorio: https://github.com/oscaritoag61-cmyk/DSW_3P_PR01/tree/eventos-tecnologicos
+
+Para descargar esta versión:
 ```bash
-git remote add origin URL_DEL_REPOSITORIO
-git switch main
-git merge feature/sql-server
-git push -u origin main
-git push origin feature/sql-server
+git fetch origin eventos-tecnologicos
+git switch --track -c eventos-tecnologicos origin/eventos-tecnologicos
 ```
