@@ -23,5 +23,12 @@ public class Evento
     [Range(1, int.MaxValue, ErrorMessage = "El cupo máximo debe ser mayor que cero.")]
     public int CupoMaximo { get; set; }
 
+    [Required(ErrorMessage = "La dificultad es obligatoria.")]
+    [StringLength(20)]
+    public string Dificultad { get; set; } = "Media";
+
+    [Range(0, int.MaxValue, ErrorMessage = "La recompensa XP no puede ser negativa.")]
+    public int RecompensaXP { get; set; }
+
     public bool Activo { get; set; } = true;
 }

@@ -16,13 +16,66 @@ Responden `400 Bad Request` con el mensaje de error.
 ## Endpoints
 | Método | Ruta | Descripción |
 |--------|------|-------------|
-| GET | /api/eventos | Lista todos |
-| GET | /api/eventos/{id} | Obtiene por Id |
-| POST | /api/eventos | Crea |
-| PUT | /api/eventos/{id} | Actualiza |
-| DELETE | /api/eventos/{id} | Elimina |
+| POST | /api/auth/token | Obtiene un token JWT válido por 30 minutos usando la llave de acceso |
+| GET | /api/eventos | Lista todos (requiere token) |
+| GET | /api/eventos/{id} | Obtiene por Id (requiere token) |
+| POST | /api/eventos | Crea (requiere token) |
+| PUT | /api/eventos/{id} | Actualiza (requiere token) |
+| DELETE | /api/eventos/{id} | Elimina (requiere token) |
 
 Swagger: http://localhost:5080/swagger
+
+## Ejemplo de clientes de la API
+
+### Swagger
+1. Abre `http://localhost:5080/swagger`.
+2. Ejecuta `POST /api/auth/token`.
+3. Copia el campo `accessToken`.
+4. Pulsa **Authorize**, escribe `Bearer {accessToken}` y prueba los endpoints protegidos.
+
+### Postman
+Importa la colección [postman/DSW_3P_PR01.postman_collection.json](postman/DSW_3P_PR01.postman_collection.json)
+y el entorno [postman/DSW_3P_PR01.postman_environment.json](postman/DSW_3P_PR01.postman_environment.json).
+El entorno usa `http://localhost:5080` como `baseUrl` y contiene `apiKey` como variable.
+
+1. Selecciona el entorno.
+2. Configura `apiKey` con el valor de `Authentication:ApiKey`.
+3. Ejecuta **Auth / Obtener token**. El script de prueba guarda `accessToken` automáticamente.
+4. Ejecuta las solicitudes de **Eventos**; todas heredan el Bearer token.
+
+## Autenticación
+Los endpoints de eventos requieren un token Bearer. La llave de acceso sirve para
+solicitar un token y no se envía en cada operación. El token vence a los 30 minutos;
+al vencer, solicita uno nuevo. La llave de firma y la llave de acceso se configuran
+fuera del repositorio mediante variables de entorno:
+
+```powershell
+$env:Authentication__ApiKey = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+$env:Authentication__SigningKey = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+dotnet run
+```
+
+Guarda ambos valores generados para usarlos en las solicitudes. La API no inicia si
+falta alguna llave o si la llave de firma tiene menos de 32 bytes.
+
+Solicitar un token:
+```powershell
+$tokenResponse = Invoke-RestMethod -Method Post `
+  -Uri http://localhost:5080/api/auth/token `
+  -ContentType "application/json" `
+  -Body (@{ apiKey = $env:Authentication__ApiKey } | ConvertTo-Json)
+$token = $tokenResponse.accessToken
+```
+
+Usar el token, por ejemplo:
+```powershell
+Invoke-RestMethod -Uri http://localhost:5080/api/eventos `
+  -Headers @{ Authorization = "Bearer $token" }
+```
+
+En Swagger, pulsa **Authorize** e ingresa `Bearer <token>` para probar los endpoints
+protegidos. La llave de acceso es una credencial fija configurada por el operador;
+lo que vence y debe volver a solicitarse cada 30 minutos es el token JWT.
 
 ## Historial de versiones
 1. `chore: proyecto inicial y modelo Evento`
@@ -61,11 +114,11 @@ SELECT * FROM Eventos;
 ## Ejemplo de cuerpo para POST
 ```json
 {
-  "nombre": "Conferencia de Inteligencia Artificial",
-  "categoria": "Conferencia",
+  "nombre": "Salvar a Poncho",
+  "categoria": "Misión",
   "fecha": "2026-12-20T10:00:00",
-  "lugar": "Auditorio Principal",
-  "cupoMaximo": 200,
+  "lugar": "Aldea de los Exploradores",
+  "cupoMaximo": 10,
   "activo": true
 }
 ```

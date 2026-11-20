@@ -1,20 +1,24 @@
 [
   {
     "Id": 1,
-    "Nombre": "Hackatón Bajío 2026",
-    "Categoria": "Hackatón",
+    "Nombre": "Salvar a Poncho",
+    "Categoria": "Misión",
     "Fecha": "2026-12-05T09:00:00",
-    "Lugar": "Universidad La Salle Bajío",
-    "CupoMaximo": 120,
+    "Lugar": "Aldea de los Exploradores",
+    "CupoMaximo": 10,
+    "Dificultad": "Difícil",
+    "RecompensaXP": 100000,
     "Activo": true
   },
   {
     "Id": 2,
-    "Nombre": "Taller de APIs REST con .NET",
-    "Categoria": "Taller",
+    "Nombre": "Derrotar a Barba",
+    "Categoria": "Misión",
     "Fecha": "2026-12-12T16:00:00",
-    "Lugar": "Laboratorio de Cómputo 3",
-    "CupoMaximo": 30,
+    "Lugar": "Fortaleza de Barba",
+    "CupoMaximo": 20,
+    "Dificultad": "Media",
+    "RecompensaXP": 100,
     "Activo": true
   }
 ]

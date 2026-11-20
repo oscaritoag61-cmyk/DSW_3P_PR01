@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "DSW_3P_PR01 - API de Eventos",
+    "description": "Colección de ejemplo para probar la autenticación JWT y el CRUD de eventos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5080",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Obtener token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    const body = pm.response.json();",
+                  "    pm.collectionVariables.set(\"accessToken\", body.accessToken);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiKey\": \"{{apiKey}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/auth/token"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Eventos",
+      "item": [
+        {
+          "name": "Listar eventos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/eventos"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener evento por Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/eventos/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear evento",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Salvar a Poncho\",\n  \"categoria\": \"Misión\",\n  \"fecha\": \"2026-12-20T10:00:00\",\n  \"lugar\": \"Aldea de los Exploradores\",\n  \"cupoMaximo\": 10,\n  \"activo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/eventos"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar evento",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"nombre\": \"Derrotar a Barba\",\n  \"categoria\": \"Misión\",\n  \"fecha\": \"2026-12-20T10:00:00\",\n  \"lugar\": \"Fortaleza de Barba\",\n  \"cupoMaximo\": 20,\n  \"activo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/api/eventos/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar evento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/eventos/1"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
