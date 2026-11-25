@@ -100,6 +100,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IEventoRepository, EventoSqlRepository>();
 builder.Services.AddScoped<IEventoService, EventoService>();
 
+builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnection")));
+builder.Services.AddScoped<IMisionRepository, MisionPostgreSqlRepository>();
+
 var app = builder.Build();
 
 app.UseCors("QuestLogFrontend");
