@@ -9,4 +9,12 @@ public class AppDbContext : DbContext
         : base(options) { }
 
     public DbSet<Evento> Eventos => Set<Evento>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Evita que Npgsql exija DateTime con Kind=Utc (timestamptz).
+        modelBuilder.Entity<Evento>()
+            .Property(e => e.Fecha)
+            .HasColumnType("timestamp without time zone");
+    }
 }

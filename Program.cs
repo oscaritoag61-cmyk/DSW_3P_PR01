@@ -94,7 +94,7 @@ builder.Services
 builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Único cambio de composición: ahora se inyecta el repositorio SQL.
 builder.Services.AddScoped<IEventoRepository, EventoSqlRepository>();
@@ -111,3 +111,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 10.0.*

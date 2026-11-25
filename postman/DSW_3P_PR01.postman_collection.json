@@ -114,7 +114,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"Salvar a Poncho\",\n  \"categoria\": \"Misión\",\n  \"fecha\": \"2026-12-20T10:00:00\",\n  \"lugar\": \"Aldea de los Exploradores\",\n  \"cupoMaximo\": 10,\n  \"activo\": true\n}",
+              "raw": "{\n  \"nombre\": \"Salvar a Poncho\",\n  \"categoria\": \"Misión\",\n  \"fecha\": \"2026-12-20T10:00:00\",\n  \"lugar\": \"Aldea de los Exploradores\",\n  \"cupoMaximo\": 10,\n  \"dificultad\": \"Difícil\",\n  \"recompensaXP\": 100000,\n  \"activo\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -137,7 +137,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": 1,\n  \"nombre\": \"Derrotar a Barba\",\n  \"categoria\": \"Misión\",\n  \"fecha\": \"2026-12-20T10:00:00\",\n  \"lugar\": \"Fortaleza de Barba\",\n  \"cupoMaximo\": 20,\n  \"activo\": true\n}",
+              "raw": "{\n  \"id\": 7,\n  \"nombre\": \"Derrotar a Barba\",\n  \"categoria\": \"Misión\",\n  \"fecha\": \"2026-12-20T10:00:00\",\n  \"lugar\": \"Fortaleza de Barba\",\n  \"cupoMaximo\": 20,\n  \"dificultad\": \"Media\",\n  \"recompensaXP\": 100,\n  \"activo\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"

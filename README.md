@@ -46,8 +46,14 @@ El entorno usa `http://localhost:5080` como `baseUrl` y contiene `apiKey` como v
 ## Autenticación
 Los endpoints de eventos requieren un token Bearer. La llave de acceso sirve para
 solicitar un token y no se envía en cada operación. El token vence a los 30 minutos;
-al vencer, solicita uno nuevo. La llave de firma y la llave de acceso se configuran
-fuera del repositorio mediante variables de entorno:
+al vencer, solicita uno nuevo. Para desarrollo local, las llaves ya están definidas
+en `appsettings.json`, así que puedes iniciar con `dotnet run` sin configurar variables
+de entorno. El inicio de sesión de demostración usa el usuario `admin` y la contraseña
+`questlog123`; el endpoint `POST /api/auth/token` usa la ApiKey local de desarrollo
+definida en `appsettings.json`.
+
+Las llaves incluidas son únicamente para desarrollo y no deben usarse en producción.
+En un entorno real, reemplázalas mediante variables de entorno:
 
 ```powershell
 $env:Authentication__ApiKey = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
@@ -55,8 +61,8 @@ $env:Authentication__SigningKey = [Convert]::ToBase64String([Security.Cryptograp
 dotnet run
 ```
 
-Guarda ambos valores generados para usarlos en las solicitudes. La API no inicia si
-falta alguna llave o si la llave de firma tiene menos de 32 bytes.
+Guarda ambos valores generados para usarlos en las solicitudes. La llave de firma
+debe tener al menos 32 bytes.
 
 Solicitar un token:
 ```powershell
@@ -119,6 +125,8 @@ SELECT * FROM Eventos;
   "fecha": "2026-12-20T10:00:00",
   "lugar": "Aldea de los Exploradores",
   "cupoMaximo": 10,
+  "dificultad": "Difícil",
+  "recompensaXP": 100000,
   "activo": true
 }
 ```
