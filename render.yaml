@@ -1,0 +1,21 @@
+# Blueprint de Render para la API (Docker).
+# Las cadenas de conexion se piden al crear el servicio (sync: false),
+# asi la contrasena nunca queda en el repositorio.
+services:
+  - type: web
+    name: questlog-api
+    runtime: docker
+    plan: free
+    region: oregon            # misma region que la base questlogdb_9b30
+    branch: feature/postgresql
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /swagger/index.html
+    envVars:
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: ConnectionStrings__PostgreSqlConnection
+        sync: false
+      - key: Authentication__SigningKey
+        generateValue: true
+      - key: Authentication__ApiKey
+        generateValue: true
