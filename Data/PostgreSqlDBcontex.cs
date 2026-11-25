@@ -8,13 +8,7 @@ public class PostgreSqlDbContext : DbContext
     public PostgreSqlDbContext(DbContextOptions<PostgreSqlDbContext> options)
         : base(options) { }
 
-    public DbSet<Evento> Eventos => Set<Evento>();
+    // Eventos vive en AppDbContext; este contexto solo maneja Misiones
+    // para que ambos puedan compartir la misma base de datos.
     public DbSet<Mision> Misiones => Set<Mision>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Evento>()
-            .Property(e => e.Fecha)
-            .HasColumnType("timestamp without time zone");
-    }
 }
